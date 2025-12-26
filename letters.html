@@ -101,6 +101,7 @@
             const checkBtn = document.getElementById('check-btn');
             const nextBtn = document.getElementById('next-btn');
             const feedback = document.getElementById('feedback');
+            var checked = false;
 
             function showNew() {
                 const { letter, fonetic } = getRandomLetter();
@@ -128,6 +129,7 @@
                     showResult(ok);
                     if(nextBtn && ok){
                         nextBtn.removeAttribute('disabled');
+                        checked = true;
                     }
                 });
             }
@@ -136,7 +138,10 @@
                 input.addEventListener('keydown', (e)=>{
                     if(e.key === 'Enter'){
                         e.preventDefault();
-                        if(checkBtn) checkBtn.click();
+                        if(nextBtn && checked){
+                            nextBtn.click();
+                            checked = false;
+                        } else if(checkBtn) checkBtn.click();
                     }
                 });
             }
